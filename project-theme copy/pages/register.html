@@ -1,0 +1,74 @@
+  <!-- ================ start banner area ================= -->	
+	<section class="blog-banner-area" id="category">
+		<div class="container h-100">
+			<div class="blog-banner">
+				<div class="text-center">
+					<h1>Register</h1>
+					<nav aria-label="breadcrumb" class="banner-breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">ГЛАВНАЯ</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Регистрация</li>
+            </ol>
+          </nav>
+				</div>
+			</div>
+    </div>
+	</section>
+	<!-- ================ end banner area ================= -->
+  
+  <!--================Login Box Area =================-->
+	<section class="login_box_area section-margin">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="login_box_img">
+						<div class="hover">
+							<h4>У вас уже есть аккаунт на нашей лучшей платформе?</h4>
+							<p>Регистрируйся и тогда не пропустишь самые выгодные наши предложения!!!</p>
+							<a class="button button-account" href="/auth">ВОЙТИ</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="login_form_inner register_form_inner">
+						<h3>Регистрация</h3>
+						<form class="row login_form" onsubmit="sendForm(this); return false">
+							<div class="col-md-12 form-group">
+								<input type="text" class="form-control" name="name" placeholder="Имя пользователя" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Имя пользователя'">
+							</div>
+							<div class="col-md-12 form-group">
+								<input type="text" class="form-control" name="lastname" placeholder="Фамилия пользователя" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Фамилия пользователя'">
+							</div>
+							<div class="col-md-12 form-group">
+								<input type="email" class="form-control" name="email" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'" autocomplete="email">
+              </div>
+              <div class="col-md-12 form-group">
+								<input type="password" class="form-control" name="password" placeholder="Пароль" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Пароль'" autocomplete="new-password">
+              </div>
+							<div class="col-md-12 form-group">
+								<div class="creat_account">
+									<input type="checkbox" id="f-option2">
+									<label for="f-option2">Согласие на обработку персональных данных</label>
+								</div>
+							</div>
+							<div class="col-md-12 form-group">
+								<button type="submit" value="submit" class="button button-register w-100">Зарегистрироваться</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--================End Login Box Area =================-->
+
+	<script>
+		async function sendForm(form) {
+			let formData = new FormData(form);
+			let response = await fetch("addUser", {
+				method: "POST",
+				body: formData
+			});
+			console.log(await response.json());
+		}
+	</script>

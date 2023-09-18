@@ -1,0 +1,109 @@
+
+  <!-- ================ start banner area ================= -->	
+	<section class="blog-banner-area" id="category">
+		<div class="container h-100">
+			<div class="blog-banner">
+				<div class="text-center">
+					<h1>Авторизация пользователя</h1>
+					<nav aria-label="breadcrumb" class="banner-breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Главная</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Авторизация</li>
+              <li class="breadcrumb-item active" aria-current="page">Регистрация?</li>
+            </ol>
+          </nav>
+				</div>
+			</div>
+    </div>
+	</section>
+	<!-- ================ end banner area ================= -->
+  
+  <!--================Login Box Area =================-->
+	<section class="login_box_area section-margin">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="login_box_img">
+						<div class="hover">
+							<h4>ТОлько пришли к нам?</h4>
+							<p>Быстрее регистрируйся пока еще есть места!!!</p>
+							<a class="button button-account" href="/register">ЗАРЕГИСТРИРОВАТЬСЯ</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="login_form_inner">
+						<h3>Для авторизации заполни поля ниже и нажми на АВТОРИЗОВАТЬСЯ</h3>
+						<form class="row login_form" onsubmit="sendForm(this); return false;">
+							<div class="col-md-12 form-group">
+								<input type="email" class="form-control" name="email" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'" autocomplete="email" required>
+              </div>
+              <div class="col-md-12 form-group">
+								<input type="password" class="form-control" name="pass" placeholder="Пароль" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Пароль'" autocomplete="password" required>
+              </div>
+							<p id="info" style="color: red;"></p>
+
+							<div class="col-md-12 form-group">
+								<button type="submit" value="submit" class="button button-login w-100">АВТОРИЗОВАТЬСЯ</button>
+								<a href="#">Забыл пароль? жаль конечно тебя бедолагу</a>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--================End Login Box Area =================-->
+
+<!-- Модальное окно -->
+<div class="modal fade" id="myModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Авторизация прошла успешно</h5>
+        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
+          <!-- <span aria-hidden="true">&times;</span> -->
+        </button>
+      </div>
+      <div class="modal-body">Вы будете перенаправлены на страницу кабинета через 3 секунды</div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- +Форма проверить изменить под задачу по аналогии  -->
+<!-- +Функция асинхронная которая будет стучаться в бэкенд и задачать вопрос а есть ли пользователь с такими значениями из полей введенных пользователем -->
+<!-- +При неверном отклонить  -->
+<!-- +авторизацию уже делали ранее! -->
+<!--  использовать сессию ее память сессия старт в роутере - для того что бы можно было использовать данные пользователя и на другой странице(передать на нее переменные ...) -->
+<!-- Фукнция должна при получении ответа от сервера производить действия на данной странице. ! функция а вернее запрос отложенный, т.е. ждем ответа в виде данных, сейчас это джейсон-->
+<!-- При верном изменить адрес страницы на  перевести пользователя на страницу личного кабинета пользователя.  -->
+<script>
+
+let info = document.getElementById("info");
+
+		async function sendForm(form) {
+			let formData = new FormData(form);
+			let response = await fetch("authUser", {
+				method: "POST",
+				body: formData,
+			});
+			let outcom = await response.json();
+			if (outcom.result == "success") {
+				console.log("Все классно");
+				$('#myModal').modal('show');
+				setTimeout(() => {
+					location.href = "users/profile";
+				}, 3000);
+			} else if (outcom.result == "exist") {
+				console.log("негативный ответ");
+				info.innerText = "Неверные данные, может зарегестрируетесь пока есть возможность или вспомните почту пароль?";
+			} else {
+				alert('Неизвестная ошибка');
+			}
+		}
+
+
+
+</script>
